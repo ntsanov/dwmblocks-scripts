@@ -1,0 +1,27 @@
+#!/bin/bash
+
+VOLUME=$(pamixer --get-volume)
+MUTE=$(pamixer --get-mute)
+PAD=
+
+if [ $MUTE == 'true' ]; then
+	ICON=''
+else
+	ICON=''
+	# Unfortunatelly different icons have different length and
+	# this makes the whole bar to move
+	#if [ $VOLUME -eq 0 ]; then
+	#	ICON=''
+	#elif [ $VOLUME -lt 35 ]; then
+	#	ICON=''
+	#else 
+	#	ICON=''
+	#fi
+fi
+if [ $VOLUME -lt 100 ]; then
+	PAD=' '
+fi
+
+printf "${ICON}${PAD}${VOLUME}%%\n"
+
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+BASE="/sys/class/power_supply/BAT0"
+CHARGE_FULL=`cat ${BASE}/energy_full_design`
+ENERGY_NOW=`cat ${BASE}/energy_now`
+STATUS=`cat ${BASE}/status`
+ICON=
+
+PERCENT=`bc <<< "scale=2; ($ENERGY_NOW/$CHARGE_FULL)*100"`
+# Round
+PERCENT=`printf "%.0f" $PERCENT`
+
+
+if [ "$STATUS" == "Charging" ]; then
+	ICON=""
+elif [ "$PERCENT" -lt 20 ]; then
+	ICON=""
+elif [ "$PERCENT" -lt 40 ]; then
+	ICON=""
+elif [ "$PERCENT" -lt 60 ]; then
+	ICON=""
+elif [ "$PERCENT" -lt 80 ]; then
+	ICON=""
+else
+	ICON=""
+fi
+
+printf "$ICON $PERCENT%%\n"
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+CPU_N=$(nproc)
+LOAD_AVG=$(uptime | awk -F'load average:' '{print $2}' | awk -F',' '{print $1}')
+LOAD=$(bc <<< "scale=2; ($LOAD_AVG/$CPU_N)*100")
+printf "%.0f%%\n"  $LOAD
